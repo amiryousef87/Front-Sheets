@@ -1,5 +1,3 @@
-<div align="center">
-
 # React CSV Manager
 
 ###  Upload, Read, Edit & Save CSV Files Easily with React + Vite
