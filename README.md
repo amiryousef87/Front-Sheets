@@ -11,27 +11,24 @@
 
 ###  **Features**
 
-- 📥 Upload CSV files
-- 📊 Display CSV data in a table
-- ✏️ Edit CSV content inline
-- 💾 Save edited CSV files
+-  Upload CSV files
+-  Display CSV data in a table
+-  Edit CSV content inline
+-  Save edited CSV files
 
 ---
 
-###  **Getting Started**
+###  Getting Started
 
 1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+```bash
+git clone https://github.com/amiryousef87/Front-Sheets
+cd Front-Sheets
 
-###  **Install dependencies**
 npm install
 
-###  **Run in development modes**
 npm run dev
 
-###  **Build for production**
 npm run build
 
 
