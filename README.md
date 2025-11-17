@@ -37,7 +37,7 @@ npm run dev
 ```bash
 npm run build
 
-
+---
 ```text
 MIT License
 
