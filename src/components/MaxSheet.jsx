@@ -332,10 +332,14 @@ export default function MaxSheet() {
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Enter") {
-        if (editing.r == null && selection.r != null) setEditing({ ...selection });
+        if (editing.r == null && selection.r != null)
+          setEditing({ ...selection });
       }
       if (e.key === "ArrowDown") {
-        setSelection((s) => ({ r: Math.min(rows.length - 1, (s.r ?? -1) + 1), c: s.c }));
+        setSelection((s) => ({
+          r: Math.min(rows.length - 1, (s.r ?? -1) + 1),
+          c: s.c,
+        }));
       }
       if (e.key === "ArrowUp") {
         setSelection((s) => ({ r: Math.max(0, (s.r ?? 0) - 1), c: s.c }));
@@ -344,11 +348,17 @@ export default function MaxSheet() {
         setSelection((s) => ({ r: s.r, c: Math.max(0, (s.c ?? 0) - 1) }));
       }
       if (e.key === "ArrowRight") {
-        setSelection((s) => ({ r: s.r, c: Math.min(cols - 1, (s.c ?? -1) + 1) }));
+        setSelection((s) => ({
+          r: s.r,
+          c: Math.min(cols - 1, (s.c ?? -1) + 1),
+        }));
       }
       if (e.key === "Tab") {
         e.preventDefault();
-        setSelection((s) => ({ r: s.r, c: Math.min(cols - 1, (s.c ?? -1) + 1) }));
+        setSelection((s) => ({
+          r: s.r,
+          c: Math.min(cols - 1, (s.c ?? -1) + 1),
+        }));
       }
     };
     window.addEventListener("keydown", onKey);
@@ -362,7 +372,9 @@ export default function MaxSheet() {
     return (
       <td
         key={`cell-${r}-${c}`}
-        className={`ms-cell ${isSelected ? "ms-cell-selected" : ""} ${isEditing ? "ms-cell-editing" : ""}`}
+        className={`ms-cell ${isSelected ? "ms-cell-selected" : ""} ${
+          isEditing ? "ms-cell-editing" : ""
+        }`}
         onClick={() => handleCellClick(r, c)}
         onDoubleClick={() => handleDouble(r, c)}
       >
@@ -405,33 +417,96 @@ export default function MaxSheet() {
 
   return (
     <Box className="ms-root" sx={{ p: 2 }}>
-      <Box className="ms-toolbar" sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}>
-        <Tooltip title="Add row">
-          <IconButton size="small" onClick={() => addRow(rows.length)}>
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Remove last row">
-          <IconButton size="small" onClick={() => removeRow(rows.length - 1)}>
-            <RemoveIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Add column">
-          <IconButton size="small" onClick={() => addCol(cols)}>
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Remove last column">
-          <IconButton size="small" onClick={() => removeCol(cols - 1)}>
-            <RemoveIcon />
-          </IconButton>
-        </Tooltip>
-        <Button variant="outlined" size="small" onClick={() => setRows(rows.map(r => r.map(() => "")))}>
-          Clear
-        </Button>
-        <Button variant="contained" component="label" size="small">
+      <Box
+        className="ms-toolbar"
+        sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}
+      >
+        <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+          {/* گروه ردیف */}
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <Tooltip title="Add row">
+              <IconButton size="small" onClick={() => addRow(rows.length)}>
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Remove last row">
+              <IconButton
+                size="small"
+                onClick={() => removeRow(rows.length - 1)}
+              >
+                <RemoveIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+
+          {/* گروه ستون */}
+          <Box sx={{ display: "flex", gap: 1, ml: 2 }}>
+            <Tooltip title="Add column">
+              <IconButton size="small" onClick={() => addCol(cols)}>
+                <AddIcon /> {/* می‌تونی اینو با ArrowRightAlt عوض کنی */}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Remove last column">
+              <IconButton size="small" onClick={() => removeCol(cols - 1)}>
+                <RemoveIcon /> {/* می‌تونی اینو با ArrowLeft عوض کنی */}
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
+
+        <Button variant="outlined" component="label" size="small">
           Upload CSV
           <input type="file" accept=".csv" hidden onChange={handleUpload} />
+        </Button>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => {
+            // درخواست نام فایل از کاربر
+            let fileName = prompt("Enter file name:", "maxsheet");
+            if (!fileName) return; // اگر کاربر Cancel کرد، کاری انجام نشه
+
+            // اضافه کردن پسوند csv اگر ندارد
+            if (!fileName.toLowerCase().endsWith(".csv")) {
+              fileName += ".csv";
+            }
+
+            // تبدیل جدول به CSV
+            const csvContent = rows.map((row) => row.join(",")).join("\n");
+            const blob = new Blob([csvContent], {
+              type: "text/csv;charset=utf-8;",
+            });
+            const url = URL.createObjectURL(blob);
+
+            // ایجاد لینک موقت برای دانلود
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }}
+        >
+          Save to CSV
+        </Button>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => {
+            // حالت ویرایش تمام جدول یا اولین سلول
+            setSelection({ r: 0, c: 0 }); // اولین سلول انتخاب میشه
+            setEditing({ r: 0, c: 0 }); // آماده ویرایش میشه
+          }}
+        >
+          Edit Sheets
+        </Button>
+
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => setRows(rows.map((r) => r.map(() => "")))}
+        >
+          Clear
         </Button>
         <Box sx={{ flex: 1 }} />
         <Button startIcon={<GridOnIcon />} size="small" variant="text">
