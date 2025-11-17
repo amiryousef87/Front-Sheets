@@ -1,16 +1,39 @@
-# React + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React CSV Manager
 
-Currently, two official plugins are available:
+###  Upload, Read, Edit & Save CSV Files Easily with React + Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org)
+[![Vite](https://img.shields.io/badge/Vite-4+-green?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![CSV](https://img.shields.io/badge/CSV-Files-orange?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTggM2gtMTJjLTEuMSAwLTEgMS0xIDF2MThjMCAxLjEgMCAxIDEgMWgxMmMxLjEgMCAxLTEgMS0xdi0xOGMwLTEuMSAwLTEtMS0xeiBtLTEgMTVoLTEwdi0xaDEweiBtMC0zSDdsMCAxaDEweiBtMC00SDd2MWgxMHoiLz48L3N2Zz4=)](https://en.wikipedia.org/wiki/Comma-separated_values)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+###  **Features**
 
-## Expanding the ESLint configuration
+- 📥 Upload CSV files
+- 📊 Display CSV data in a table
+- ✏️ Edit CSV content inline
+- 💾 Save edited CSV files
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+###  **Getting Started**
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+
+###  **Install dependencies**
+npm install
+
+###  **Run in development modes**
+npm run dev
+
+###  **Build for production**
+npm run build
+
+
